@@ -7,19 +7,13 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	noSidebarContentWidth: 0.8,
 	leftComponents: [
 		{ type: "profile", enable: true, position: "top", showOnPostPage: true },
+		{ type: "tags", enable: true, position: "top", showOnPostPage: true, specificConfig: { collapseThreshold: 10 } },
 		{
 			type: "categories",
 			enable: true,
 			position: "sticky",
 			showOnPostPage: false,
 			specificConfig: { collapseThreshold: 5 },
-		},
-		{
-			type: "tags",
-			enable: true,
-			position: "sticky",
-			showOnPostPage: false,
-			specificConfig: { collapseThreshold: 10 },
 		},
 		{
 			type: "sidebarToc",

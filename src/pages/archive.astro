@@ -3,8 +3,12 @@ import ArchivePanel from "@components/controls/ArchivePanel.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import LearningNav from "@/components/learning/LearningNav.astro";
+import LearningTimeline from "@/components/learning/LearningTimeline.astro";
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>
-  <ArchivePanel />
+  <LearningNav active="Timeline" />
+  <LearningTimeline />
+  <section class="mt-4" aria-label="Notes by publication date"><details id="publication-browser"><summary class="card-base px-8 py-4 cursor-pointer text-sm text-75">Browse notes by publication date, tag or category</summary><ArchivePanel /></details></section>
 </MainGridLayout>

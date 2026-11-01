@@ -202,6 +202,10 @@ const foldOnFilter = collapseAllButFirst;
       const uncategorized = params.get("uncategorized");
 
       const hasFilter = tags.length > 0 || categories.length > 0 || !!uncategorized;
+      const timeline = document.getElementById("learning-study-timeline");
+      if (timeline) timeline.hidden = hasFilter;
+      const browser = document.getElementById("publication-browser");
+      if (browser instanceof HTMLDetailsElement) browser.open = hasFilter;
 
       if (hasFilter) {
         this.applyFilter(tags, categories, !!uncategorized);

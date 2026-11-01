@@ -36,7 +36,7 @@ const home = await readFile(path.join(destination, "index.html"), "utf8");
 assert(home.includes(`${siteBasePath}_astro/`), "Asset URLs must include the base path");
 assert(home.includes("A:lNVfqUGILD:JQG"), "Unexpected site title");
 await writeFile(path.join(output, ".nojekyll"), "");
-await writeFile(path.join(output, "index.html"), `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${siteBasePath}"><meta name="robots" content="noindex"><title>quisasterisk</title></head><body><a href="${siteBasePath}">進入網站</a></body></html>`);
+await writeFile(path.join(output, "index.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${siteBasePath}"><meta name="robots" content="noindex"><title>quisasterisk</title></head><body><a href="${siteBasePath}">Enter site</a></body></html>`);
 // robots.txt only applies at the domain root.
 await writeFile(path.join(output, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: https://d23c-c.github.io${siteBasePath}sitemap-index.xml\n`);
 await cp(path.join(destination, "404.html"), path.join(output, "404.html"));

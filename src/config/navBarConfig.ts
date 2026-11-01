@@ -5,24 +5,30 @@ import {
 	NavBarSearchMethod,
 } from "../types/navBarConfig";
 export const LinkPresets: Record<string, NavBarLink> = {
-	Home: { name: "首頁", url: "/" },
+	Home: { name: "Home", url: "/" },
 	Archive: {
-		name: "學習筆記",
-		url: "/archive/",
+		name: "Learning Notes",
+		url: "/learning-notes/",
+		children: [
+			{ name: "Languages", url: "/learning-notes/" },
+			{ name: "Tags", url: "/tags/" },
+			{ name: "Categories", url: "/categories/" },
+			{ name: "Timeline", url: "/archive/" },
+		],
 	},
 	Projects: {
-		name: "專案",
+		name: "Projects",
 		url: "/projects/",
 	},
 	Security: {
-		name: "資安實驗室",
+		name: "Lab",
 		url: "/security/",
 	},
 	Research: {
-		name: "簡報與筆記",
+		name: "Archive",
 		url: "/research/",
 	},
-	About: { name: "關於我", url: "/about/" },
+	About: { name: "About", url: "/about/" },
 };
 export const navBarConfig: NavBarConfig = { links: Object.values(LinkPresets) };
 export const navBarSearchConfig: NavBarSearchConfig = {

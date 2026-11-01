@@ -1,9 +1,9 @@
 ---
-title: "CTF 平台"
+title: "CTF Platform"
 published: 2026-11-01
-description: "CTF 平台管理、題庫與部署展示，專案內容整理中。"
+description: "CTF platform management, challenge libraries and deployment demonstrations."
 tags: ["CTF", "platform-management"]
-status: "規劃中"
+status: "planning"
 lang: "zh-TW"
 ---
 

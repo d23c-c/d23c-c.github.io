@@ -1,9 +1,9 @@
 ---
-title: "SQL 網頁專案"
+title: "SQL Web Project"
 published: 2026-11-01
-description: "資料庫設計、查詢與網頁整合，專案內容準備中。"
+description: "Database design, queries and web integration."
 tags: ["SQL", "Web"]
-status: "規劃中"
+status: "planning"
 lang: "zh-TW"
 ---
 

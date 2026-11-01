@@ -19,7 +19,7 @@ const sources = ["default", "cat", "fat_cat"].map(name => url(`/assets/quisaster
       img.removeAttribute('srcset');
       img.closest('picture')?.querySelectorAll('source').forEach(source => source.removeAttribute('srcset'));
       if (img.getAttribute('src') !== selected) img.src = selected;
-      img.alt = selected === sources[0] ? '庭園' : '貓咪 Banner';
+      img.alt = selected === sources[0] ? 'Garden' : 'Cat banner';
     });
   };
   const randomize = () => {

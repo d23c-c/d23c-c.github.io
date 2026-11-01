@@ -3,7 +3,7 @@ import { url } from "@/utils/url-utils";
 interface Props { class?: string; banner?: boolean }
 const { class: className = "btn-regular rounded-lg h-10 w-10 active:scale-90", banner = false } = Astro.props;
 ---
-<button type="button" class={className} data-youtube-music-trigger aria-label="播放 Hardest To Love — The Weeknd" title="Hardest To Love — The Weeknd" aria-controls="personal-youtube-player" aria-expanded="false">
+<button type="button" class={className} data-youtube-music-trigger aria-label="Play Hardest To Love — The Weeknd" title="Hardest To Love — The Weeknd" aria-controls="personal-youtube-player" aria-expanded="false">
  <img src={url('/assets/quisasterisk/icons/play.png')} width="22" height="22" alt="" class:list={['music-play-icon', { 'on-banner': banner }]} />
 </button>
 <style>

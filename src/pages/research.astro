@@ -2,17 +2,20 @@
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 const resources = [
  {title:"APT-scope",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/gw66vf8k4g26zpr"},
- {title:"學制更改倡議",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/6e715mjpoh4pogb"},
+ {title:"Education System Reform Proposal",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/6e715mjpoh4pogb"},
+ {title:"Network Security and Social Practice",description:"Corporate teaching slides for the Network Security and Social Practice course.",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/bgsqkcuarc0cax9"},
+ {title:"Cybersecurity Education Program — Web Visuals",description:"Web image design as a project assistant for the Ministry of Education's interdisciplinary cybersecurity talent development program and high school adaptive cybersecurity teaching initiative.",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/1me0596ntshep9m"},
+ {title:"C++ and Micro:bit — Programming Camp",description:"Instructor slides for the Changhua-area junior high school winter programming camp at National Changhua Senior High School · December 2024.",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/x35n04cex2rx3pc"},
+ {title:"Programming Workshops — Volunteer Team and C++ Camp",description:"Teaching slides from the National Changhua Senior High School Information Volunteer Team (September 2021–June 2023), and the 2025 Changhua-area junior high school C++ programming camp.",category:"Presentations",platform:"Canva",tags:["presentation"],url:"https://canva.link/0soou0yqiqmqlva"},
  {title:"Active Directory Attacks—Steps, Types, and Signatures",category:"Notes",platform:"HackMD",tags:["notes","Active-Directory"],url:"https://hackmd.io/@o6CjK_Z9QXu3wlU5pnrZFA/HJD-v2nGee"},
  {title:"APT-scope",category:"Notes",platform:"HackMD",tags:["notes","APT"],url:"https://hackmd.io/@o6CjK_Z9QXu3wlU5pnrZFA/SJJqFNIYZe"},
 ];
 const groups = [{name:"Notes",id:"notes"},{name:"Presentations",id:"presentations"}];
 ---
-<MainGridLayout title="簡報與筆記" description="Notes 與 Presentations：閱讀筆記、研究簡報與倡議。">
+<MainGridLayout title="Archive" description="Notes, presentations, teaching materials and visual projects.">
  <section class="card-base p-6 md:p-9" data-pagefind-body>
-  <h2 class="text-3xl font-bold mb-3">簡報與筆記</h2>
-  <p class="text-75 mb-6">閱讀留下筆記，分享整理成簡報。</p>
-  <nav aria-label="資料分類" class="flex flex-wrap gap-3 mb-10">
+  <h2 class="text-3xl font-bold mb-8">Archive</h2>
+  <nav aria-label="Resource categories" class="flex flex-wrap gap-3 mb-10">
    {groups.map(group => <a href={"#"+group.id} class="rounded-full px-4 py-2 text-sm bg-(--primary)/10 text-(--primary)">{group.name} <span class="ml-2">{resources.filter(item => item.category === group.name).length}</span></a>)}
   </nav>
   {groups.map(group => <section id={group.id} class="mb-10 scroll-mt-24" aria-label={group.name}>
@@ -21,6 +24,7 @@ const groups = [{name:"Notes",id:"notes"},{name:"Presentations",id:"presentation
     {resources.filter(item => item.category === group.name).map(item => <article class="rounded-xl border border-black/10 dark:border-white/10 p-5 hover:border-(--primary) transition-colors">
      <span class="text-sm text-(--primary)">{item.platform} ↗</span>
      <h4 class="text-xl font-bold mt-2 leading-relaxed"><a href={item.url} target="_blank" rel="noopener noreferrer" class="hover:text-(--primary) transition-colors">{item.title}</a></h4>
+     {"description" in item && <p class="text-sm text-75 mt-3 leading-relaxed">{item.description}</p>}
      <div class="flex flex-wrap gap-2 mt-4" aria-label="Tags">{item.tags.map(tag => <span class="rounded-md bg-(--primary)/10 text-(--primary) text-xs px-2 py-1">#{tag}</span>)}</div>
     </article>)}
    </div>

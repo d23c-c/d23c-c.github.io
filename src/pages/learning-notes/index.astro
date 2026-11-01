@@ -1,0 +1,23 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import LearningNav from "@/components/learning/LearningNav.astro";
+import { learningTracks, studyPeriod } from "@/data/learning";
+import { getSortedPostsList } from "@/utils/content-utils";
+import { url } from "@/utils/url-utils";
+const posts = (await getSortedPostsList()).filter(p => p.id.startsWith("learning-notes/"));
+---
+<MainGridLayout title="Learning Notes" description="Programming language notes, organized by language, topic and study period.">
+ <LearningNav />
+ <section class="card-base p-6 md:p-9" data-pagefind-body>
+  <h2 class="text-3xl font-bold mb-3">Learning Notes</h2>
+  <p class="text-75 mb-8">Five languages. {posts.length} notes. A record of concepts, practice and lessons learned.</p>
+  <div class="grid gap-4 md:grid-cols-2">
+   {learningTracks.map(track => <a href={url(`/learning-notes/${track.slug}/`)} class="rounded-xl border border-black/10 dark:border-white/10 p-6 hover:border-(--primary) transition-colors">
+    <div class="flex justify-between gap-4 items-center"><h3 class="text-2xl font-bold">{track.name}</h3><span class="text-sm text-(--primary)">{posts.filter(p=>p.id.startsWith(`learning-notes/${track.slug}/`)).length} notes ↗</span></div>
+    <p class="text-75 leading-relaxed my-4">{track.description}</p>
+    <p class="text-sm text-(--primary)">{studyPeriod(track)}</p><p class="text-xs text-50 mt-1">{track.stage}</p>
+    <p class="text-xs text-50 mt-3">{track.tools}</p>
+   </a>)}
+  </div>
+ </section>
+</MainGridLayout>

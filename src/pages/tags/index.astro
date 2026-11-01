@@ -5,6 +5,7 @@ import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { getTagList } from "@/utils/content-utils";
 import { getTagUrl } from "@/utils/url-utils";
+import LearningNav from "@/components/learning/LearningNav.astro";
 
 const tags = await getTagList();
 
@@ -14,6 +15,7 @@ const topMaxCount = topTags.length > 0 ? topTags[0].count : 1;
 ---
 
 <MainGridLayout title={i18n(I18nKey.tags)} description={i18n(I18nKey.allTags)}>
+    <LearningNav active="Tags" />
     <!-- 页面标题 -->
     <div class="card-base px-8 py-6 mb-4">
         <div class="text-2xl font-bold text-(--primary) mb-2">

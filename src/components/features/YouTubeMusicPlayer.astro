@@ -1,13 +1,13 @@
 ---
 const videoId = "AnS96xdZ_7o";
 ---
-<section id="personal-youtube-player" class="youtube-music card-base" aria-label="音樂播放器" hidden>
+<section id="personal-youtube-player" class="youtube-music card-base" aria-label="Music player" hidden>
  <header>
   <div><span class="player-label">NOW PLAYING</span><h2>Hardest To Love</h2><p>The Weeknd · After Hours</p></div>
-  <button type="button" data-youtube-music-close aria-label="關閉音樂播放器" class="btn-plain rounded-lg h-10 w-10">✕</button>
+  <button type="button" data-youtube-music-close aria-label="Close music player" class="btn-plain rounded-lg h-10 w-10">✕</button>
  </header>
- <iframe data-video-id={videoId} title="The Weeknd — Hardest To Love（官方音訊）" width="560" height="315" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
- <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener noreferrer">在 YouTube 開啟 ↗</a>
+ <iframe data-video-id={videoId} title="The Weeknd — Hardest To Love (Official Audio)" width="560" height="315" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+ <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
 </section>
 <style>
  .youtube-music { position:fixed; z-index:150; right:1.5rem; bottom:1.5rem; width:min(24rem,calc(100vw - 2rem)); padding:1.1rem; border:1px solid color-mix(in srgb,var(--primary) 25%,transparent); box-shadow:0 16px 64px #0006; border-radius:1.25rem; }
@@ -43,7 +43,7 @@ const videoId = "AnS96xdZ_7o";
    if (!panel.hidden) { close(); return; }
    lastTrigger = trigger;
    const embed = new URL(`https://www.youtube.com/embed/${frame.dataset.videoId}`);
-   embed.search = new URLSearchParams({autoplay:'1', playsinline:'1', rel:'0', origin:location.origin, widget_referrer:location.href}).toString();
+   embed.search = new URLSearchParams({autoplay:'1', hl:'en', playsinline:'1', rel:'0', origin:location.origin, widget_referrer:location.href}).toString();
    frame.src = embed.href;
    panel.hidden = false;
    syncTriggers(true);

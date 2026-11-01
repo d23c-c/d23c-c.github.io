@@ -1,0 +1,8 @@
+---
+import { url } from "@/utils/url-utils";
+const { active = "Languages" } = Astro.props;
+const links = [{name:"Languages",href:"/learning-notes/"},{name:"Tags",href:"/tags/"},{name:"Categories",href:"/categories/"},{name:"Timeline",href:"/archive/"}];
+---
+<nav aria-label="Learning Notes" class="card-base flex flex-wrap gap-2 p-3 mb-4">
+ {links.map(link => <a href={url(link.href)} aria-current={active === link.name ? "page" : undefined} class:list={["rounded-xl px-4 py-2 text-sm font-medium transition-colors hover:bg-(--primary)/10", active === link.name ? "bg-(--primary)/15 text-(--primary)" : "text-75"]}>{link.name}</a>)}
+</nav>

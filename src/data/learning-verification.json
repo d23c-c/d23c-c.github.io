@@ -1,0 +1,355 @@
+{
+  "checkedAt": "2026-11-01",
+  "units": {
+    "C01": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "Study log: 1"
+    },
+    "C02": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "Next: 9"
+    },
+    "C03": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "4/6"
+    },
+    "C04": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "2.5 B 1"
+    },
+    "C05": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "3 1\n1 14"
+    },
+    "C06": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "9\nstudy log!"
+    },
+    "C07": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "9 6\ntrue"
+    },
+    "C08": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "practice\ntwo"
+    },
+    "C09": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "10\n1"
+    },
+    "C10": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "249 86"
+    },
+    "C11": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "2 45 1"
+    },
+    "C12": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "25 1"
+    },
+    "C13": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "35 35\n1"
+    },
+    "C14": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "25\n12"
+    },
+    "C15": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "60 30"
+    },
+    "C16": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "30 12"
+    },
+    "C17": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "6 3 3 6"
+    },
+    "C18": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "25 40"
+    },
+    "C19": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "0\n30"
+    },
+    "C20": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "35"
+    },
+    "C21": {
+      "status": "run",
+      "environment": "g++ (Rev8, Built by MSYS2 project) 15.2.0 · C++17",
+      "output": "practice"
+    },
+    "P01": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "Study log\n5"
+    },
+    "P02": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "30"
+    },
+    "P03": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "7 3"
+    },
+    "P04": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "int\n4.8 4 4"
+    },
+    "P05": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "p s\nPYTHON\nlength=12"
+    },
+    "P06": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "True\nTrue\nFalse True"
+    },
+    "P07": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "[15, 20, 25, 35]\n[40, 70, 50]"
+    },
+    "P08": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "3 5\n[2, 4, 6]"
+    },
+    "P09": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "0\n[('cpp', 4), ('python', 3)]"
+    },
+    "P10": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "practice\ntwo"
+    },
+    "P11": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "60\n0\n1"
+    },
+    "P12": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "True\n[10, 15] [10]"
+    },
+    "P13": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "[20]\n[35]"
+    },
+    "P14": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "10 25"
+    },
+    "P15": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "20 35"
+    },
+    "P16": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "25 min Session(25) True"
+    },
+    "P17": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "practice: 30 min"
+    },
+    "H01": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H02": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H03": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H04": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H05": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H06": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H07": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H08": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H09": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H10": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H11": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "H12": {
+      "status": "not-run",
+      "environment": "PHP 8+ · runtime unavailable",
+      "reason": "本機未安裝 PHP CLI，未執行，不提供推測輸出。"
+    },
+    "S01": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "Study log\n5"
+    },
+    "S02": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "90 min = 1.50 h"
+    },
+    "S03": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "C#: 25 min, ready=True\n2"
+    },
+    "S04": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "target reached\n60"
+    },
+    "S05": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "15, 25, 30\n70"
+    },
+    "S06": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "60\n30"
+    },
+    "S07": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "25\ninvalid minutes"
+    },
+    "S08": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · net10.0",
+      "output": "practice: 30"
+    },
+    "S09": {
+      "status": "build",
+      "environment": ".NET SDK 10.0.202 · net10.0-windows",
+      "output": "Build succeeded. Interactive UI not executed."
+    },
+    "S10": {
+      "status": "build",
+      "environment": ".NET SDK 10.0.202 · net10.0-windows",
+      "output": "Build succeeded. Interactive UI not executed."
+    },
+    "S11": {
+      "status": "run",
+      "environment": ".NET SDK 10.0.202 · ASP.NET Core",
+      "output": "HTTP 200\n<h1>Study Notes</h1>"
+    },
+    "S12": {
+      "status": "not-run",
+      "environment": "EF Core + SQLite · provider not installed",
+      "reason": "本機未安裝此範例所需的 EF Core SQLite 套件；尚未編譯或執行。"
+    },
+    "Q01": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "Lina\nNoah\nMia\n3\n2"
+    },
+    "Q02": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "Mia\nC++\nSQL"
+    },
+    "Q03": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "1 | Lina\n2 | Noah"
+    },
+    "Q04": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "10 | 2 | 77.5\n20 | 1 | 95.0"
+    },
+    "Q05": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "Lina | C++ | 85\nLina | SQL | 95\nNoah | C++ | 70\nMia | NULL | NULL"
+    },
+    "Q06": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "1 | SQL review | 25 | NULL"
+    },
+    "Q07": {
+      "status": "run",
+      "environment": "SQLite 3.50.4",
+      "output": "1 | 1 | 25 | practice"
+    },
+    "Q08": {
+      "status": "run",
+      "environment": "Python 3.12.12",
+      "output": "erDiagram\n    courses {\n        integer course_id PK\n        text title\n        integer credits\n    }\n    courses ||--o{ enrollments : \"course_id\"\n    students ||--o{ enrollments : \"student_id\"\n    enrollments {\n        integer student_id PK,FK\n        integer course_id PK,FK\n        integer grade\n    }\n    students {\n        integer student_id PK\n        text name\n        text email\n    }"
+    }
+  }
+}
