@@ -2,7 +2,7 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { navigateToPage } from "@utils/navigation-utils";
-import { onMount, tick } from "svelte";
+import { onMount } from "svelte";
 import Icon from "@/components/common/Icon.svelte";
 import type { SearchResult } from "@/global";
 import { FLOATING_PANEL_CLOSE_EVENT } from "@/utils/floating-panel-utils";
@@ -93,14 +93,14 @@ const handleResultClick = (event: Event, url: string): void => {
 
 // --- Core Search Logic ---
 const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
+	// Reactive statements also run while Astro renders on the server.
+	if (!initialized) return;
 	if (!keyword) {
 		cancelPendingSearch();
 		setPanelVisibility(false, isDesktop);
 		result = [];
 		return;
 	}
-	if (!initialized) return;
-
 	clearTimeout(debounceTimer);
 	const requestId = ++searchRequestId;
 	isSearching = true;
@@ -140,12 +140,8 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 onMount(() => {
 	const initializePagefind = () => {
 		initialized = true;
-		// Both responsive inputs react to initialized. Let their empty-query
-		// cleanup finish before scheduling the user's first pending search.
-		void tick().then(() => {
-			if (keywordDesktop) search(keywordDesktop, true);
-			else if (keywordMobile) search(keywordMobile, false);
-		});
+		if (keywordDesktop) search(keywordDesktop, true);
+		else if (keywordMobile) search(keywordMobile, false);
 	};
 
 	if (import.meta.env.DEV) {
@@ -178,12 +174,10 @@ onMount(() => {
 });
 
 // --- Reactive Statements ---
-$: if (initialized && (keywordDesktop || keywordDesktop === "")) {
-	search(keywordDesktop, true);
-}
-$: if (initialized && (keywordMobile || keywordMobile === "")) {
-	search(keywordMobile, false);
-}
+// React only to edits. Initialization explicitly retries the active input;
+// rerunning both inputs on readiness lets the empty one cancel the first query.
+$: search(keywordDesktop, true);
+$: search(keywordMobile, false);
 </script>
 
 <!-- search bar for desktop view -->
