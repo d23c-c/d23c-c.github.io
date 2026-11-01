@@ -1,0 +1,30 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+const labs = [
+ { name:"前瞻資安科技實驗室 | NGIS Lab", code:"NGIS", topics:["Active Directory (AD)", "Cyber Threat Intelligence (CTI)", "Lateral Movement"] },
+ { name:"代理人紅隊攻防實境實驗室 | MIRAGE Lab", code:"MIRAGE", topics:["Network Attack & Defense", "Forensics"] },
+];
+const description = "一個以主機端反鑑識行為為核心對象的 autonomous LLM agent，具備環境感知、技術選擇、執行與自適應調整能力。Agent 能夠自主判斷當前防禦環境狀態，決定採取行為偽裝（Stealth）或破壞防禦基礎設施（Impairment）策略，並根據執行結果動態調整後續行動，全程無需人工干預。以事後鑑識可還原性作為核心評測指標，衡量 agent 完成任務後殘留 artifact 能被 DFIR 團隊還原的程度，同時產出可供藍隊用於強化偵測與鑑識流程的對抗性洞見。";
+---
+<MainGridLayout title="資安實驗室" description="NGIS Lab、MIRAGE Lab 與研究項目。">
+ <section class="card-base p-6 md:p-9" data-pagefind-body>
+  <h2 class="text-3xl font-bold mb-8">資安實驗室</h2>
+  <div class="grid gap-5 xl:grid-cols-2">
+   {labs.map(lab => <article class="lab-card rounded-xl border border-black/10 dark:border-white/10 p-6">
+    <span class="text-sm text-(--primary) tracking-widest">{lab.code}</span>
+    <h3 class="text-xl font-bold mt-3 mb-5 leading-relaxed">{lab.name}</h3>
+    <ul class="flex flex-wrap gap-2">{lab.topics.map(topic => <li class="rounded-lg bg-(--primary)/10 text-(--primary) px-3 py-2 text-sm">{topic}</li>)}</ul>
+   </article>)}
+  </div>
+  <section class="mt-10 border-t border-black/10 dark:border-white/10 pt-8" aria-labelledby="research-projects">
+   <h3 id="research-projects" class="text-xl font-bold mb-5">研究項目</h3>
+   <article class="rounded-xl border border-(--primary)/30 bg-(--primary)/5 p-6 md:p-8">
+    <div class="flex flex-wrap items-center gap-3 mb-5"><h4 class="text-3xl font-bold">h1d3&amp;C</h4><span class="rounded-full bg-(--primary)/15 text-(--primary) px-3 py-1 text-xs">準備中</span></div>
+    <p class="leading-loose text-75">{description}</p>
+    <ul aria-label="Research tags" class="mt-6 flex flex-wrap gap-2">
+     {["LLM", "autonomous-agent", "anti-forensics", "DFIR", "Stealth", "Impairment"].map(tag => <li class="text-sm text-(--primary)">#{tag}</li>)}
+    </ul>
+   </article>
+  </section>
+ </section>
+</MainGridLayout>

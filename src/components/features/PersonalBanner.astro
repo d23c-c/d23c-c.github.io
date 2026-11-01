@@ -1,0 +1,86 @@
+---
+import { url } from "@/utils/url-utils";
+const home = url("/");
+const about = url("/about/");
+const sources = ["default", "cat", "fat_cat"].map(name => url(`/assets/quisasterisk/banner/${name}.jpg`));
+---
+<script is:inline define:vars={{ home, about, sources }}>
+(() => {
+  // Keep one controller across Swup visits. A full document load starts at default.
+  if (window.__personalBanner) { window.__personalBanner.visit(); return; }
+  let previousHome = location.pathname === home;
+  let selected = sources[0];
+  let timer;
+  let generation = 0;
+  let resetHome = location.pathname === about;
+  let enteredHome = previousHome ? Date.now() : 0;
+  const apply = () => {
+    document.querySelectorAll('#banner-images-container img').forEach(img => {
+      img.removeAttribute('srcset');
+      img.closest('picture')?.querySelectorAll('source').forEach(source => source.removeAttribute('srcset'));
+      if (img.getAttribute('src') !== selected) img.src = selected;
+      img.alt = selected === sources[0] ? '庭園' : '貓咪 Banner';
+    });
+  };
+  const randomize = () => {
+    const next = selected === sources[1] ? sources[2] : selected === sources[2] ? sources[1] : sources[1 + Math.floor(Math.random() * 2)];
+    const current = ++generation;
+    const preload = new Image();
+    preload.onload = () => { if (current === generation) { selected = next; apply(); } };
+    preload.src = next;
+  };
+  const reset = () => {
+    generation++;
+    selected = sources[0];
+    resetHome = true;
+    enteredHome = 0;
+    clearTimeout(timer);
+    apply();
+  };
+  const schedule = () => {
+    clearTimeout(timer);
+    if (location.pathname === home && enteredHome) {
+      const remaining = Math.max(0, 180000 - (Date.now() - enteredHome));
+      timer = setTimeout(() => { enteredHome = 0; randomize(); }, remaining);
+    }
+  };
+  const visit = () => {
+    const atHome = location.pathname === home;
+    if (location.pathname === about) reset();
+    if (atHome && !previousHome) {
+      enteredHome = Date.now();
+      if (resetHome) { resetHome = false; selected = sources[0]; }
+      else randomize();
+    }
+    if (!atHome) enteredHome = 0;
+    previousHome = atHome;
+    apply();
+    schedule();
+  };
+  window.__personalBanner = { visit };
+  document.addEventListener('click', event => {
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === '_blank') return;
+    const target = new URL(link.href, location.href);
+    if (target.origin === location.origin && target.pathname === about) reset();
+  });
+  // Banner image slots are instantiated responsively by Firefly.
+  const container = document.getElementById('banner-images-container');
+  if (container) new MutationObserver(apply).observe(container, {childList:true, subtree:true});
+  window.addEventListener('popstate', () => setTimeout(visit, 0));
+  document.addEventListener('swup:contentReplaced', visit);
+  // Swup 4 exposes lifecycle hooks; legacy DOM events are not guaranteed.
+  let hooked = false;
+  const connectSwup = () => {
+    if (!hooked && window.swup?.hooks) {
+      window.swup.hooks.on('page:view', visit);
+      hooked = true;
+    }
+  };
+  document.addEventListener('swup:enable', connectSwup);
+  connectSwup();
+  document.addEventListener('visibilitychange', schedule);
+  document.addEventListener('DOMContentLoaded', visit, { once:true });
+  visit();
+})();
+</script>
