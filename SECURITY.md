@@ -15,6 +15,8 @@
 - 關閉動態頁時，對應 JSON API 回傳空陣列，避免模板內容仍由 API 發布。
 - 關閉分析與評論服務；YouTube 僅在點擊播放後載入，縮減 iframe 權限並設定 referrer policy。
 - 外部資源連結使用 noopener/noreferrer；保留 YouTube 官方來源，沒有下載或重製音訊。
+- 二次產物檢查修正了停用頁面的 404 導向、分享圖片與結構化資料的重複子路徑，並加入產物回歸檢查。
+- 首次正式 HTTPS 部署後，瀏覽器確認歌曲實際播放（時間超過 23 秒、paused=false、error=null）；Banner 回首頁切換與 About 重設正常。
 
 ## 已知剩餘項目
 

@@ -93,8 +93,11 @@ export function url(path: string): string {
 		return path;
 	}
 
-	// 只有本地相对路径才添加BASE_URL
-	return joinUrl("", import.meta.env.BASE_URL, path);
+	// Optimized asset URLs and route helpers can already include BASE_URL.
+	// Keep this helper idempotent when metadata helpers compose these URLs.
+	const base = import.meta.env.BASE_URL;
+	if (path === base.replace(/\/$/, "") || path.startsWith(base)) return path;
+	return joinUrl("", base, path);
 }
 
 // 内容详情页路径模式：文章(/posts/、/post/) 与 项目详情(/projects/<slug>/)

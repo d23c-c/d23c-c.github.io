@@ -21,6 +21,11 @@ async function checkFiles(directory: string): Promise<void> {
 		assert(!/^\.(?:git|env|npmrc)/i.test(entry.name), `Private file in artifact: ${entry.name}`);
 		assert(!/\.(?:pem|key|pfx|p12|map|pdf|docx?)$/i.test(entry.name), `Unexpected private/source file: ${entry.name}`);
 		if (entry.isDirectory()) await checkFiles(path.join(directory, entry.name));
+		else if (entry.name.endsWith(".html")) {
+			const html = await readFile(path.join(directory, entry.name), "utf8");
+			assert(!html.includes(siteBasePath + siteBasePath.slice(1)), `Duplicate base URL in ${entry.name}`);
+			assert(!html.includes('href="/404/"'), `Unprefixed 404 URL in ${entry.name}`);
+		}
 	}
 }
 await checkFiles(destination);

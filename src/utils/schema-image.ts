@@ -81,7 +81,8 @@ async function getLocalImageInfo(
 	const img = await loadLocalImage(src, basePath);
 	if (!img) return null;
 	return {
-		url: new URL(url(img.src), base).toString(),
+		// Astro's generated asset URL already includes the configured base.
+		url: new URL(img.src, base).toString(),
 		width: img.width,
 		height: img.height,
 	};
