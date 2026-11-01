@@ -40,4 +40,29 @@ await writeFile(path.join(output, "index.html"), `<!doctype html><html lang="zh-
 // robots.txt only applies at the domain root.
 await writeFile(path.join(output, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: https://d23c-c.github.io${siteBasePath}sitemap-index.xml\n`);
 await cp(path.join(destination, "404.html"), path.join(output, "404.html"));
+// Check actual same-origin links/assets/metadata against the packaged tree.
+const checked = new Set<string>();
+async function verifyUrls(directory: string): Promise<void> {
+	for (const entry of await readdir(directory, { withFileTypes: true })) {
+		const file = path.join(directory, entry.name);
+		if (entry.isDirectory()) { await verifyUrls(file); continue; }
+		if (!entry.name.endsWith(".html")) continue;
+		const html = await readFile(file, "utf8");
+		const pageUrl = new URL(path.relative(output, file).replaceAll("\\", "/"), "https://d23c-c.github.io/");
+		for (const tag of html.matchAll(/<(?:a|link|script|img|iframe|meta)\b[^>]*>/g)) {
+			for (const attribute of tag[0].matchAll(/(href|src|content)="([^"]+)"/g)) {
+				if (attribute[1] === "content" && !attribute[2].startsWith("https://")) continue;
+				const target = new URL(attribute[2].replaceAll("&amp;", "&"), pageUrl);
+				if (target.origin !== pageUrl.origin || !target.pathname.startsWith(siteBasePath) || checked.has(target.pathname)) continue;
+				checked.add(target.pathname);
+				const local = path.resolve(output, `.${decodeURIComponent(target.pathname)}`);
+				assert(local.startsWith(`${output}${path.sep}`), "URL outside artifact");
+				const info = await stat(local);
+				if (info.isDirectory()) await stat(path.join(local, "index.html"));
+			}
+		}
+	}
+}
+await verifyUrls(output);
+console.log(`Verified ${checked.size} same-origin URLs against the artifact`);
 console.log(`Pages artifact verified: ${destination}`);

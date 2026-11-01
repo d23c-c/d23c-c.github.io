@@ -2,7 +2,7 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { navigateToPage } from "@utils/navigation-utils";
-import { onMount } from "svelte";
+import { onMount, tick } from "svelte";
 import Icon from "@/components/common/Icon.svelte";
 import type { SearchResult } from "@/global";
 import { FLOATING_PANEL_CLOSE_EVENT } from "@/utils/floating-panel-utils";
@@ -140,8 +140,12 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 onMount(() => {
 	const initializePagefind = () => {
 		initialized = true;
-		if (keywordDesktop) search(keywordDesktop, true);
-		if (keywordMobile) search(keywordMobile, false);
+		// Both responsive inputs react to initialized. Let their empty-query
+		// cleanup finish before scheduling the user's first pending search.
+		void tick().then(() => {
+			if (keywordDesktop) search(keywordDesktop, true);
+			else if (keywordMobile) search(keywordMobile, false);
+		});
 	};
 
 	if (import.meta.env.DEV) {
