@@ -10,7 +10,7 @@ const description = "An autonomous LLM agent focused on host-side anti-forensic 
  <section class="card-base p-6 md:p-9" data-pagefind-body>
   <h2 class="text-3xl font-bold mb-8">Lab</h2>
   <div class="grid gap-5 xl:grid-cols-2">
-   {labs.map(lab => <article class="lab-card rounded-xl border border-black/10 dark:border-white/10 p-6">
+   {labs.map(lab => <article id={lab.code.toLowerCase()} class="lab-card rounded-xl border border-black/10 dark:border-white/10 p-6 scroll-mt-24">
     <span class="text-sm text-(--primary) tracking-widest">{lab.code}</span>
     <h3 class="text-xl font-bold mt-3 mb-5 leading-relaxed">{lab.name}</h3>
     <ul class="flex flex-wrap gap-2">{lab.topics.map(topic => <li class="rounded-lg bg-(--primary)/10 text-(--primary) px-3 py-2 text-sm">{topic}</li>)}</ul>

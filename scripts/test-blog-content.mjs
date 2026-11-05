@@ -93,6 +93,12 @@ assert(
 	"Language units belong inside the Languages category",
 );
 const postsPage = await read("posts/index.html");
+const about = await read("about/index.html");
+assert(about.includes("NGIS Lab") && about.includes("MIRAGE Lab"));
+assert(about.includes("../security/#ngis") && about.includes("../security/#mirage"));
+for (const html of [categories, postsPage, timeline]) {
+ assert(!html.includes("Site Notes") && !html.includes("/posts/first-note/"));
+}
 for (const filename of experienceFiles) {
 	const source = await readFile(
 		`src/content/posts/experiences/${filename}`,
