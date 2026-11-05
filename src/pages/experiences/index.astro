@@ -1,0 +1,27 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import LearningNav from "@/components/learning/LearningNav.astro";
+import { getSortedPostsList } from "@/utils/content-utils";
+import { getPostUrlBySlug, url } from "@/utils/url-utils";
+import { formatActivityPeriod } from "@/utils/experience-utils";
+const posts = (await getSortedPostsList())
+	.filter((p) => p.data.experience)
+	.sort((a, b) =>
+		b.data.experience!.start.localeCompare(a.data.experience!.start),
+	);
+const kinds = [...new Set(posts.map((p) => p.data.experience!.kind))];
+---
+<MainGridLayout title="Experiences" description="Workshops, competitions, conferences and teaching, organized by activity date." postCategory="Experiences">
+ <LearningNav active="Categories" />
+ <section class="card-base p-6 md:p-9" data-pagefind-body>
+  <a href={url("/categories/")} class="text-sm text-(--primary)">Categories</a>
+  <div class="flex flex-wrap items-end justify-between gap-4 mt-4 mb-6"><div><h2 class="text-3xl font-bold mb-3">Experiences</h2><p class="text-75">{posts.length} records of workshops, competitions, conferences and teaching.</p></div><a href={url("/archive/")} class="text-sm text-(--primary)">View Timeline ↗</a></div>
+  <div class="flex flex-wrap gap-2 mb-8">{kinds.map(kind=><span class="rounded-full px-3 py-1 text-xs bg-(--primary)/10 text-(--primary)">{kind} · {posts.filter(p=>p.data.experience!.kind===kind).length}</span>)}</div>
+  <div class="grid gap-4 md:grid-cols-2">
+   {posts.map(post=>{const event=post.data.experience!;return <a href={getPostUrlBySlug(post.id)} class="rounded-xl border border-black/10 dark:border-white/10 p-6 hover:border-(--primary) transition-colors min-w-0">
+    <p class="text-xs text-(--primary) mb-3">{event.kind} · {formatActivityPeriod(event.start,event.end)}</p>
+    <h3 class="text-xl font-bold break-words">{post.data.title}</h3><p class="text-sm text-75 my-3">{post.data.description}</p><p class="text-xs text-50">{event.organizer}</p>
+   </a>;})}
+  </div>
+ </section>
+</MainGridLayout>

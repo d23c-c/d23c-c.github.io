@@ -2,7 +2,7 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { Icon } from "astro-icon/components";
-import { getCategoryList, getSortedPostsList } from "@/utils/content-utils";
+import { getCategoryList } from "@/utils/content-utils";
 import { url } from "@/utils/url-utils";
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
 const { currentPostCategory } = Astro.props as Props;
 
 const categories = await getCategoryList();
-const totalPosts = (await getSortedPostsList()).length;
 const homeUrl = url("/");
 const archiveUrl = url("/archive/");
 
@@ -23,9 +22,10 @@ const pathname = Astro.url.pathname.replace(/\/$/, "");
 const homePath = homeUrl.replace(/\/$/, "");
 const archivePath = archiveUrl.replace(/\/$/, "");
 const isHome = pathname === homePath || pathname === "" || pathname === "/";
-const isCategories = pathname === "/categories";
+const isCategories = pathname === url("/categories/").replace(/\/$/, "");
 const isArchive = pathname === archivePath;
-const postCategory = (currentPostCategory || "").trim();
+const rawCategory = (currentPostCategory || "").trim();
+const postCategory = rawCategory.startsWith("Languages / ") ? "Languages" : rawCategory;
 
 // 返回某个 pill 的初始高亮属性：active（强）或 soft-active（弱，文章页所属分类）
 function initialActive(categoryName: string): {
@@ -46,7 +46,7 @@ function initialActive(categoryName: string): {
   id="category-bar"
   data-home-path={homeUrl}
   data-archive-path={archiveUrl}
-  data-current-post-category={currentPostCategory || ""}
+  data-current-post-category={postCategory}
 >
   <div class="category-bar-inner flex gap-2">
     <a
@@ -67,7 +67,6 @@ function initialActive(categoryName: string): {
       data-active={initialActive("__archive__").active ? "" : undefined}
     >
       {i18n(I18nKey.archive)}
-      <span class="pill-count">{totalPosts}</span>
     </a>
     <div class="category-divider shrink-0"></div>
     <div class="scroll-area relative">

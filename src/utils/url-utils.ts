@@ -45,6 +45,8 @@ export function getTagUrl(tag: string): string {
 }
 
 export function getCategoryUrl(category: string | null): string {
+	if (category?.trim() === "Languages") return url("/learning-notes/");
+	if (category?.trim() === "Experiences") return url("/experiences/");
 	if (
 		!category ||
 		category.trim() === "" ||

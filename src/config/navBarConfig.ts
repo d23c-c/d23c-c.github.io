@@ -7,10 +7,10 @@ import {
 export const LinkPresets: Record<string, NavBarLink> = {
 	Home: { name: "Home", url: "/" },
 	Archive: {
-		name: "Learning Notes",
-		url: "/learning-notes/",
+		name: "Posts",
+		url: "/posts/",
 		children: [
-			{ name: "Languages", url: "/learning-notes/" },
+			{ name: "All Posts", url: "/posts/" },
 			{ name: "Tags", url: "/tags/" },
 			{ name: "Categories", url: "/categories/" },
 			{ name: "Timeline", url: "/archive/" },

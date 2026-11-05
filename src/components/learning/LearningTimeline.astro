@@ -2,19 +2,82 @@
 import { learningTracks, studyPeriod } from "@/data/learning";
 import { getSortedPostsList } from "@/utils/content-utils";
 import { getPostUrlBySlug, url } from "@/utils/url-utils";
-const notes = (await getSortedPostsList()).filter(p=>p.id.startsWith("learning-notes/"));
-const years = [...new Set(learningTracks.map(t=>t.from.slice(0,4)))].sort().reverse();
+import { formatActivityPeriod } from "@/utils/experience-utils";
+const posts = await getSortedPostsList();
+const notes = posts.filter((p) => p.id.startsWith("learning-notes/"));
+const entries = [
+	...learningTracks.map((track) => ({
+		id: `language-${track.slug}`,
+		start: track.from,
+		type: "Languages",
+		kind: "Study",
+		title: track.name,
+		href: url(`/learning-notes/${track.slug}/`),
+		period: studyPeriod(track),
+		description: track.stage,
+		notes: notes
+			.filter((p) => p.id.startsWith(`learning-notes/${track.slug}/`))
+			.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0)),
+	})),
+	...posts
+		.filter((p) => p.data.experience)
+		.map((post) => {
+			const event = post.data.experience!;
+			return {
+				id: post.id,
+				start: event.start,
+				type: "Experiences",
+				kind: event.kind,
+				title: post.data.title,
+				href: getPostUrlBySlug(post.id),
+				period: formatActivityPeriod(event.start, event.end),
+				description: event.organizer,
+				notes: [],
+			};
+		}),
+].sort(
+	(a, b) => b.start.localeCompare(a.start) || a.title.localeCompare(b.title),
+);
+const years = [...new Set(entries.map((e) => e.start.slice(0, 4)))];
 ---
 <section id="learning-study-timeline" class="card-base p-6 md:p-9" data-pagefind-body>
- <h2 class="text-3xl font-bold mb-3">Learning Timeline</h2>
- <p class="text-sm text-75 mb-8">Study periods estimated from school semesters. Note publication dates are separate.</p>
- {years.map(year=><details open class="mb-8"><summary class="text-2xl font-bold text-(--primary) cursor-pointer mb-5">{year}</summary>
-  <div class="ml-3 border-l-2 border-(--primary)/25 pl-6 space-y-6">{learningTracks.filter(t=>t.from.startsWith(year)).sort((a,b)=>b.from.localeCompare(a.from)).map(track=>{
-   const units=notes.filter(p=>p.id.startsWith(`learning-notes/${track.slug}/`)).sort((a,b)=>(a.data.seriesOrder??0)-(b.data.seriesOrder??0));
-   return <article class="relative"><span class="absolute -left-[2rem] top-2 h-3 w-3 rounded-full bg-(--primary)" aria-hidden="true"></span>
-    <a href={url(`/learning-notes/${track.slug}/`)} class="text-xl font-bold hover:text-(--primary)">{track.name}</a><p class="text-sm text-(--primary) mt-1">{studyPeriod(track)}</p><p class="text-sm text-50 mt-1">{track.stage}</p>
-    <details class="mt-3"><summary class="cursor-pointer text-sm text-75">{units.length} learning notes</summary><ol class="grid gap-2 mt-3">{units.map(post=><li><a class="text-sm hover:text-(--primary)" href={getPostUrlBySlug(post.id)}>{post.data.title}</a></li>)}</ol></details>
-   </article>;
-  })}</div>
- </details>)}
+ <h2 class="text-3xl font-bold mb-3">Timeline</h2>
+ <p class="text-sm text-75 mb-6">Language study periods and experiences, ordered by activity date. Study periods are semester estimates; post publication dates are separate.</p>
+ <activity-timeline>
+  <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter timeline">
+   {[{type:"All",count:entries.length},{type:"Languages",count:learningTracks.length},{type:"Experiences",count:entries.length-learningTracks.length}].map(filter=><button type="button" data-timeline-filter={filter.type} aria-pressed={filter.type==="All"?"true":"false"} class="rounded-full px-4 py-2 text-sm border border-(--primary)/20 transition-colors hover:bg-(--primary)/10 aria-pressed:bg-(--primary)/15 aria-pressed:text-(--primary)">{filter.type} · {filter.count}</button>)}
+  </div>
+  <p class="sr-only" aria-live="polite" data-timeline-count>{entries.length} entries</p>
+  {years.map(year=><details open class="mb-8" data-timeline-year><summary class="text-2xl font-bold text-(--primary) cursor-pointer mb-5">{year}</summary>
+   <div class="ml-3 border-l-2 border-(--primary)/25 pl-6 space-y-7">{entries.filter(e=>e.start.startsWith(year)).map(entry=><article class="relative" data-timeline-type={entry.type} data-event-start={entry.start}>
+    <span class="absolute -left-[2rem] top-2 h-3 w-3 rounded-full bg-(--primary)" aria-hidden="true"></span>
+    <p class="text-xs text-50 mb-2">{entry.kind}</p>
+    <a href={entry.href} class="text-lg md:text-xl font-bold hover:text-(--primary) break-words">{entry.title}</a>
+    <p class="text-sm text-(--primary) mt-1">{entry.period}</p><p class="text-sm text-50 mt-1">{entry.description}</p>
+    {entry.notes.length>0&&<details class="mt-3"><summary class="cursor-pointer text-sm text-75">{entry.notes.length} learning notes</summary><ol class="grid gap-2 mt-3">{entry.notes.map(post=><li><a class="text-sm hover:text-(--primary)" href={getPostUrlBySlug(post.id)}>{post.data.title}</a></li>)}</ol></details>}
+   </article>)}</div>
+  </details>)}
+ </activity-timeline>
 </section>
+<script>
+ class ActivityTimeline extends HTMLElement {
+  connectedCallback() {
+   const buttons = this.querySelectorAll<HTMLButtonElement>("[data-timeline-filter]");
+   buttons.forEach(button=>button.addEventListener("click",()=>{
+    const selected=button.dataset.timelineFilter;
+    buttons.forEach(item=>item.setAttribute("aria-pressed",String(item===button)));
+    let count=0;
+    this.querySelectorAll<HTMLElement>("[data-timeline-type]").forEach(entry=>{
+     entry.hidden=selected!=="All"&&entry.dataset.timelineType!==selected;
+     if(!entry.hidden) count++;
+    });
+    this.querySelectorAll<HTMLDetailsElement>("[data-timeline-year]").forEach(year=>{
+     year.hidden=!Array.from(year.querySelectorAll<HTMLElement>("[data-timeline-type]")).some(entry=>!entry.hidden);
+    });
+    const status=this.querySelector("[data-timeline-count]");
+    if(status) status.textContent=`${count} entries`;
+   }));
+  }
+ }
+ if(!customElements.get("activity-timeline")) customElements.define("activity-timeline",ActivityTimeline);
+</script>

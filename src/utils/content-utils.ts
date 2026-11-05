@@ -200,7 +200,8 @@ export async function getCategoryList(): Promise<Category[]> {
 				? post.data.category.trim()
 				: String(post.data.category).trim();
 
-		count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
+		const group = categoryName.startsWith("Languages / ") ? "Languages" : categoryName;
+		count[group] = count[group] ? count[group] + 1 : 1;
 	});
 
 	const lst = Object.keys(count).sort((a, b) => {

@@ -4,14 +4,21 @@ import LearningNav from "@/components/learning/LearningNav.astro";
 import { learningTracks, studyPeriod } from "@/data/learning";
 import { getSortedPostsList } from "@/utils/content-utils";
 import { getPostUrlBySlug, url } from "@/utils/url-utils";
-export function getStaticPaths() { return learningTracks.map(track=>({params:{language:track.slug},props:{track}})); }
+export function getStaticPaths() {
+	return learningTracks.map((track) => ({
+		params: { language: track.slug },
+		props: { track },
+	}));
+}
 const { track } = Astro.props;
-const posts = (await getSortedPostsList()).filter(p=>p.id.startsWith(`learning-notes/${track.slug}/`)).sort((a,b)=>(a.data.seriesOrder??0)-(b.data.seriesOrder??0));
+const posts = (await getSortedPostsList())
+	.filter((p) => p.id.startsWith(`learning-notes/${track.slug}/`))
+	.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 ---
-<MainGridLayout title={`${track.name} · Learning Notes`} description={track.description}>
- <LearningNav />
+<MainGridLayout title={`${track.name} · Languages`} description={track.description} postCategory="Languages">
+ <LearningNav active="Categories" />
  <section class="card-base p-6 md:p-9" data-pagefind-body>
-  <a href={url("/learning-notes/")} class="text-sm text-(--primary)">Learning Notes / Languages</a>
+  <div class="text-sm text-(--primary)"><a href={url("/categories/")}>Categories</a> / <a href={url("/learning-notes/")}>Languages</a></div>
   <h2 class="text-3xl font-bold mt-4 mb-3">{track.name}</h2><p class="text-75 mb-5">{track.description}</p>
   <p class="text-sm text-(--primary)">{studyPeriod(track)} · {track.stage}</p>
   <p class="text-sm text-50 mt-2">Tools: {track.tools}</p>

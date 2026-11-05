@@ -23,6 +23,12 @@ type PostData = {
 	passwordHint: string;
 	series: string;
 	seriesOrder?: number;
+	experience?: {
+		start: string;
+		end?: string;
+		kind: "Workshop" | "Competition" | "Conference" | "Teaching";
+		organizer: string;
+	};
 	prevTitle: string;
 	prevSlug: string;
 	nextTitle: string;
@@ -81,6 +87,17 @@ const postsCollection: ContentCollection<PostData> = defineCollection({
 		passwordHint: z.string().optional().default(""),
 		series: z.string().optional().default(""),
 		seriesOrder: z.number().optional(),
+		experience: z
+			.object({
+				start: z.string().regex(/^\d{4}-\d{2}(?:-\d{2})?$/),
+				end: z
+					.string()
+					.regex(/^\d{4}-\d{2}(?:-\d{2})?$/)
+					.optional(),
+				kind: z.enum(["Workshop", "Competition", "Conference", "Teaching"]),
+				organizer: z.string(),
+			})
+			.optional(),
 
 		/* For internal use */
 		prevTitle: z.string().default(""),

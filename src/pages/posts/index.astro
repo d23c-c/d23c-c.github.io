@@ -1,0 +1,23 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import LearningNav from "@/components/learning/LearningNav.astro";
+import { getSortedPostsList } from "@/utils/content-utils";
+import { getPostUrlBySlug } from "@/utils/url-utils";
+import { formatActivityDate } from "@/utils/experience-utils";
+const posts = await getSortedPostsList();
+---
+<MainGridLayout title="Posts" description="Programming notes, workshops, competitions and other experiences.">
+ <LearningNav active="Posts" />
+ <section class="card-base p-6 md:p-9" data-pagefind-body>
+  <h2 class="text-3xl font-bold mb-3">Posts</h2>
+  <p class="text-75 mb-8">{posts.length} posts about learning, practice and experiences.</p>
+  <div class="grid gap-4 md:grid-cols-2">
+   {posts.map(post => <a href={getPostUrlBySlug(post.id)} class="rounded-xl border border-black/10 dark:border-white/10 p-5 hover:border-(--primary) transition-colors min-w-0">
+    <p class="text-xs text-(--primary) mb-2">{post.data.category || "Uncategorized"}</p>
+    <h3 class="text-lg font-bold break-words">{post.data.title}</h3>
+    <p class="text-sm text-75 mt-3">{post.data.description}</p>
+    <p class="text-xs text-50 mt-4">Published {formatActivityDate(post.data.published.toISOString().slice(0,10))}</p>
+   </a>)}
+  </div>
+ </section>
+</MainGridLayout>
