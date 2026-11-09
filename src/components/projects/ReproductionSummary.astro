@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatActivityDate } from "@/utils/experience-utils";
+import { url } from "@/utils/url-utils";
+interface Props {
+	record: NonNullable<CollectionEntry<"projects">["data"]["cve"]>;
+}
+const { record } = Astro.props;
+const observed = record.evidence === "observed";
+---
+<section class="rounded-xl border border-(--primary)/25 bg-(--primary)/5 p-5 mb-7" aria-label="Reproduction record">
+ <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+  <a href={url("/cve-reproduction/")} class="font-medium text-(--primary)">CVE Reproduction ↗</a>
+  <span data-cve-evidence={record.evidence} class:list={["rounded-full px-3 py-1 text-xs font-medium", observed ? "bg-(--primary)/15 text-(--primary)" : "bg-amber-500/15 text-amber-600 dark:text-amber-300"]}>{observed ? "Observed in lab" : "Evidence pending"}</span>
+ </div>
+ <dl class="grid gap-4 sm:grid-cols-2 text-sm">
+  <div><dt class="text-50 mb-1">CVE</dt><dd class="font-medium">{record.id}</dd></div>
+  <div><dt class="text-50 mb-1">{observed ? "Lab record date" : "Preparation notes dated"}</dt><dd>{formatActivityDate(record.recorded)}</dd></div>
+  <div><dt class="text-50 mb-1">Environment</dt><dd>{record.environment}</dd></div>
+  <div><dt class="text-50 mb-1">Evidence scope</dt><dd>{record.outcome}</dd></div>
+ </dl>
+ <div class="mt-5 flex flex-wrap gap-3">
+  <a href={url("/assets/cve/reports/" + record.id.toLowerCase() + "-public-report.pdf")} download class="rounded-lg bg-(--primary)/15 text-(--primary) px-4 py-2 text-sm font-medium">Download public report (PDF)</a>
+  <span class="self-center text-xs text-50">De-identified edition · No patch retest recorded</span>
+ </div>
+</section>

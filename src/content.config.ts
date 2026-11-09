@@ -58,6 +58,14 @@ type ProjectData = {
 	link: ProjectLink[];
 	status: string;
 	lang: string;
+	category: string;
+	cve?: {
+		id: string;
+		recorded: string;
+		evidence: "observed" | "pending";
+		environment: string;
+		outcome: string;
+	};
 };
 
 type ContentCollection<T> = CollectionConfig<
@@ -144,6 +152,16 @@ const projectsCollection: ContentCollection<ProjectData> = defineCollection({
 			.default([]),
 		status: z.string().optional().default(""),
 		lang: z.string().optional().default(""),
+		category: z.string().optional().default(""),
+		cve: z
+			.object({
+				id: z.string().regex(/^CVE-\d{4}-\d{4,}$/),
+				recorded: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+				evidence: z.enum(["observed", "pending"]),
+				environment: z.string(),
+				outcome: z.string(),
+			})
+			.optional(),
 	}),
 });
 

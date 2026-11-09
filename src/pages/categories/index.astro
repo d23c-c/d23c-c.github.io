@@ -7,7 +7,7 @@ import { getCategoryList } from "@/utils/content-utils";
 import LearningNav from "@/components/learning/LearningNav.astro";
 
 const categories = await getCategoryList();
-const totalPosts = categories.reduce((sum, cat) => sum + cat.count, 0);
+const totalEntries = categories.reduce((sum, cat) => sum + cat.count, 0);
 ---
 
 <MainGridLayout title={i18n(I18nKey.categories)}>
@@ -18,7 +18,7 @@ const totalPosts = categories.reduce((sum, cat) => sum + cat.count, 0);
             {i18n(I18nKey.categories)}
         </div>
         <p class="text-30 text-sm">
-            {i18n(I18nKey.allCategories)} · {totalPosts} {i18n(I18nKey.postsCount)}
+            {i18n(I18nKey.allCategories)} · {totalEntries} entries
         </p>
     </div>
 
@@ -42,7 +42,7 @@ const totalPosts = categories.reduce((sum, cat) => sum + cat.count, 0);
                             {category.name}
                         </h2>
                         <p class="text-sm text-30 mt-1 group-hover:text-(--primary)/60 transition-colors">
-                            {category.count} {i18n(I18nKey.postsCount)}
+                            {category.count} {category.contentType === "projects" ? "projects" : i18n(I18nKey.postsCount)}
                         </p>
                     </div>
                     <div class="shrink-0">

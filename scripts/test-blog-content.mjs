@@ -57,6 +57,7 @@ for (const route of [
 	"security/index.html",
 	"about/index.html",
 	"projects/index.html",
+	"cve-reproduction/index.html",
 ]) {
 	const html = await read(route);
 	const visible = html

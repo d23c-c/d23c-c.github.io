@@ -181,6 +181,7 @@ export type Category = {
 	name: string;
 	count: number;
 	url: string;
+	contentType?: "posts" | "projects";
 };
 
 export async function getCategoryList(): Promise<Category[]> {
@@ -200,7 +201,9 @@ export async function getCategoryList(): Promise<Category[]> {
 				? post.data.category.trim()
 				: String(post.data.category).trim();
 
-		const group = categoryName.startsWith("Languages / ") ? "Languages" : categoryName;
+		const group = categoryName.startsWith("Languages / ")
+			? "Languages"
+			: categoryName;
 		count[group] = count[group] ? count[group] + 1 : 1;
 	});
 
@@ -216,6 +219,21 @@ export async function getCategoryList(): Promise<Category[]> {
 			name: c,
 			count: count[c],
 			url: getCategoryUrl(c),
+		});
+	}
+	// CVE project case studies use a dedicated landing page, separate from post filters.
+	const cveProjects = await getCollection(
+		"projects",
+		({ data }) =>
+			data.category === "CVE Reproduction" &&
+			(!import.meta.env.PROD || !data.draft),
+	);
+	if (cveProjects.length > 0) {
+		ret.push({
+			name: "CVE Reproduction",
+			count: cveProjects.length,
+			url: getCategoryUrl("CVE Reproduction"),
+			contentType: "projects",
 		});
 	}
 	return ret;

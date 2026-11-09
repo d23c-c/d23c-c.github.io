@@ -35,5 +35,14 @@ https://github.com/advisories/GHSA-gcqx-w48m-w2h4
 
 ## 後續檢查
 
+### 2026-11-09：CVE 專題公開版本
+
+- 原始報告、PDF、截圖與腳本保留於本機，發布資料另行產生。
+- 公開內容使用去識別化的摘要與結果轉錄，不含原始 IP、主機名稱、個人帳號、憑證或原始截圖。
+- 三份新 PDF 已檢查可擷取文字、中繼資料、外部連結與附件；逐頁渲染檢查排版。
+- PDF 發布改為精確路徑與 SHA-256 白名單，其他 PDF 或內容被替換的檔案仍會使部署失敗。
+- 依現有證據區分 Apache／PrintNightmare 的實測觀察與 Dirty COW 的待實測狀態，未宣稱完成修補後複測。
+- 套件檢查仍為 critical 0、high 0、moderate 0、low 1；低風險既知項目見上方說明。
+
 更新套件後執行 pnpm audit、pnpm check、pnpm type-check、Banner 測試、pnpm build 與 prepare-pages。
 部署後再次檢查首頁、內頁、資源網址、404、搜尋與互動。YouTube 嵌入是否可播放取決於第三方限制。

@@ -11,7 +11,11 @@ import {
 	getProjectStatusMeta,
 	PROJECT_STATUS_KEYS,
 } from "@/utils/projects-utils";
-import { getFileDirFromPath, removeFileExtension } from "@/utils/url-utils";
+import {
+	getFileDirFromPath,
+	removeFileExtension,
+	url,
+} from "@/utils/url-utils";
 import "@/styles/pages/card-grid.css";
 
 // 检查页面是否启用
@@ -61,6 +65,9 @@ const statusFilters = PROJECT_STATUS_KEYS.map((key) => {
 				<span>{title}</span>
 			</div>
 		<!-- 搜索 + 状态筛选（标题面板内，整行；搜索与筛选分两行） -->
+		<a href={url("/cve-reproduction/")} class="inline-flex items-center gap-2 text-sm text-(--primary) font-medium" style="grid-column: 1 / -1">
+			CVE Reproduction · {projects.filter(p => p.data.category === "CVE Reproduction").length} case studies ↗
+		</a>
 		<project-filter style="grid-column: 1 / -1">
 			<div class="relative mb-3">
 				<Icon

@@ -46,6 +46,8 @@ jobs:
         run: pnpm build
       - name: Verify content and English interface
         run: node scripts/test-blog-content.mjs
+      - name: Verify reviewed CVE publication assets
+        run: node scripts/test-cve-publication.mjs
       - name: Prepare Pages artifact and check exposure
         run: pnpm exec tsx scripts/prepare-pages.ts
       - name: Configure GitHub Pages
